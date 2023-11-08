@@ -1,0 +1,40 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      MYSQL_ROOT_PASSWORD: ':u0=0TI^3@lI'
+    ports:
+      - '3306'
+    volumes:
+      - './mysql/init-scripts:/docker-entrypoint-initdb.d'
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    environment:
+      RABBITMQ_DEFAULT_USER: 'dev'
+      RABBITMQ_DEFAULT_PASS: '67lG"Bc6;taL'
+    ports:
+      - '5672'
+      - "15672:15673"
+  app_client:
+    image: 'client_service:latest'
+    ports:
+      - '8080:8080'
+    environment:
+      SPRING_DATASOURCE_TYPE: 'com.zaxxer.hikari.HikariDataSource'
+      SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/testdb'
+      SPRING_DATASOURCE_USERNAME: 'admin'
+      SPRING_DATASOURCE_PASSWORD: ':u0=0TI^3@lI'
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: 'com.mysql.cj.jdbc.Driver'
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: 'org.hibernate.dialect.MySQL8Dialect'
+      SPRING_JPA_HIBERNATE_DDL-AUTO: 'update'
+      SPRING_DATASOURCE_HIKARI_MAXIMUM-POOL-SIZE: '10'
+      SPRING_DATASOURCE_HIKARI_IDLE-TIMEOUT: '30000'
+
+      SPRING_RABBITMQ_HOST: 'rabbitmq'
+      SPRING_RABBITMQ_PORT: '5672'
+      SPRING_RABBITMQ_USERNAME: 'dev'
+      SPRING_RABBITMQ_PASSWORD: '67LG"BC6;TAL'
+    depends_on:
+      - mysql
+      - rabbitmq
