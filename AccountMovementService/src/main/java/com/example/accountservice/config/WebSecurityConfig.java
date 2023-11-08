@@ -1,4 +1,4 @@
-package com.example.clientservice.config;
+package com.example.accountservice.config;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

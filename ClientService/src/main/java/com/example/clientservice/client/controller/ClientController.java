@@ -15,22 +15,22 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity saveClient(@Valid @RequestBody Client client) {
+    public ResponseEntity save(@Valid @RequestBody Client client) {
         return clientService.post(client);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity getClient(@PathVariable Long id) {
+    public ResponseEntity get(@PathVariable Long id) {
         return clientService.get(id);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody Client client) {
         return clientService.put(id, client);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity deleteClient(@PathVariable Long id) {
+    public ResponseEntity delete(@PathVariable Long id) {
         return clientService.delete(id);
     }
 }
