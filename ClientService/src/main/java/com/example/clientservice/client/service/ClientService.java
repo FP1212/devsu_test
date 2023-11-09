@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.URLDecoder;
+
 @Service
 @AllArgsConstructor
 public class ClientService {
@@ -30,6 +32,10 @@ public class ClientService {
 
     public ResponseEntity<?> get(Long id) {
         return clientRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    public ResponseEntity<?> getByName(String name) {
+        return clientRepository.findByName(URLDecoder.decode(name)).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     public ResponseEntity<?> put(Long id, Client newClient) {

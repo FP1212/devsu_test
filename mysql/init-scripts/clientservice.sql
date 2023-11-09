@@ -8,8 +8,8 @@ SET time_zone = '+00:00';
 CREATE TABLE tbluser (
 		id INT(19) NOT NULL AUTO_INCREMENT COMMENT 'userId',
 		name varchar(100) NOT NULL,
-		genre SMALLINT(2) UNSIGNED NOT NULL,
-		age SMALLINT(3) UNSIGNED NOT NULL,
+		genre SMALLINT(2) UNSIGNED DEFAULT NULL,
+		age SMALLINT(3) UNSIGNED DEFAULT NULL,
 		address VARCHAR(200) NOT NULL,
 		auditCreationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         phone varchar(20) DEFAULT NULL,
@@ -24,3 +24,5 @@ CREATE TABLE tblcustomer (
 		primary key(id),
         constraint FK_USER_CUSTOMER foreign key (userId) references tbluser(id)
     ) engine = InnoDB default charset = utf8mb4;
+    
+alter table client change column name name varchar(100) NOT NUll;

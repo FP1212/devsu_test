@@ -1,22 +1,22 @@
 package com.example.accountservice.account.controller;
 
-import com.example.accountservice.account.model.Account;
+import com.example.accountservice.account.dto.AccountDto;
 import com.example.accountservice.account.service.AccountService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(value = "/cuentas")
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Account account) {
-        return accountService.post(account);
+    public ResponseEntity save(@Valid @RequestBody AccountDto accountDto) {
+        return accountService.post(accountDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -25,8 +25,8 @@ public class AccountController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Account account) {
-        return accountService.put(id, account);
+    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody AccountDto accountDto) {
+        return accountService.put(id, accountDto);
     }
 
     @DeleteMapping(value = "/{id}")

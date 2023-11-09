@@ -21,6 +21,8 @@ services:
     ports:
       - '5672'
       - "15672:15673"
+    volumes:
+      - ./rabbitmq:/etc/rabbitmq      
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 15s

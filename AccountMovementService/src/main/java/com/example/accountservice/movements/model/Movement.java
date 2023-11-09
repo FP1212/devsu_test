@@ -1,18 +1,20 @@
 package com.example.accountservice.movements.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.accountservice.account.model.Account;
+import com.example.accountservice.audit.model.Auditable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 
 @Entity
+@Table
 @NoArgsConstructor
 @Data
-public class Movement {
+public class Movement extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,9 +25,15 @@ public class Movement {
     @NonNull
     private Double value;
 
-    @NonNull
     private Double balance;
 
-    @CreatedDate
-    private Date auditCreationDate;
+    private Boolean status;
+
+    @NonNull
+    @Size(max = 20)
+    private String number;
+
+    @ManyToOne
+    @JoinColumn(name="account_id")
+    private Account account;
 }

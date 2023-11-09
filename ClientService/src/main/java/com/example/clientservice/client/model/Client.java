@@ -1,18 +1,17 @@
 package com.example.clientservice.client.model;
 
 import com.example.clientservice.user.model.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Date;
 
 @Entity
+@Table
 @NoArgsConstructor
 @Data
 public class Client extends User {
@@ -26,9 +25,6 @@ public class Client extends User {
     private String password;
 
     private boolean status;
-
-    @CreatedDate
-    private Date auditCreationDate;
 
     public void setPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

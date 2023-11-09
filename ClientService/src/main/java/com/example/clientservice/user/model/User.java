@@ -1,19 +1,16 @@
 package com.example.clientservice.user.model;
 
+import com.example.clientservice.audit.model.Auditable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.util.Date;
 
 @MappedSuperclass
 @NoArgsConstructor
 @Data
-public class User {
+public class User extends Auditable<String> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +27,4 @@ public class User {
 
     @Size(max = 20)
     private String phone;
-
-    @CreatedDate
-    private Date auditCreationDate;
 }

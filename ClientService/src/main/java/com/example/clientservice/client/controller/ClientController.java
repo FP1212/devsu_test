@@ -24,6 +24,11 @@ public class ClientController {
         return clientService.get(id);
     }
 
+    @GetMapping
+    public ResponseEntity getByName(@RequestParam String name) {
+        return clientService.getByName(name);
+    }
+
     @PutMapping(value = "/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody Client client) {
         return clientService.put(id, client);

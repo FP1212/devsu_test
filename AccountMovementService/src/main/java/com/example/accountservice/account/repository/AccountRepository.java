@@ -12,6 +12,9 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             "then true" +
             " else false" +
             " end" +
-            " from Movement account where account.number = :number")
-    boolean existsByNumber(@Param("number") Long number);
+            " from Account account where account.number = :number")
+    boolean existsByNumber(@Param("number") String number);
+
+    @Query("SELECT account FROM Account account WHERE account.number = :number AND account.status = true")
+    Optional<Account> findByNumber(@Param("number") String number);
 }

@@ -26,7 +26,7 @@ public class WebSecurityConfig  {
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers( "/clientes/**")
+                        request.requestMatchers( "/cuentas/**", "/movimientos/**")
                                 .permitAll())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .build();
