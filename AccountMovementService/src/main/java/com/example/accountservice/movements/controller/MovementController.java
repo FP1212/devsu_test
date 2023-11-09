@@ -16,8 +16,8 @@ public class MovementController {
     private final MovementService movementService;
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody Movement movement) {
-        return movementService.post(movement);
+    public ResponseEntity post(@Valid @RequestBody Movement movement) {
+        return movementService.save(movement);
     }
 
     @GetMapping(value = "/{id}")
@@ -26,8 +26,13 @@ public class MovementController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody MovementDto movementDto) {
-        return movementService.put(id, movementDto);
+    public ResponseEntity put(@PathVariable Long id, @Valid @RequestBody Movement movement) {
+        return movementService.update(id, movement);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity patch(@PathVariable Long id, @Valid @RequestBody MovementDto movementDto) {
+        return movementService.patch(id, movementDto);
     }
 
     @DeleteMapping(value = "/{id}")

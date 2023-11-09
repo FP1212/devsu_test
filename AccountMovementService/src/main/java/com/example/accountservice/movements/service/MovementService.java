@@ -25,7 +25,7 @@ public class MovementService {
     private final AccountRepository accountRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public ResponseEntity<?> post(Movement movement) {
+    public ResponseEntity<?> save(Movement movement) {
         try {
             Optional<Account> optionalAccount = accountRepository.findByNumber(movement.getNumber());
 
@@ -56,7 +56,16 @@ public class MovementService {
         return movementRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public ResponseEntity<?> put(Long id, MovementDto movementDto) {
+    public ResponseEntity<?> update(Long id, Movement newMovement) {
+        if (movementRepository.existsById(id)) {
+            newMovement.setId(id);
+            return ResponseEntity.ok(movementRepository.save(newMovement));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> patch(Long id, MovementDto movementDto) {
         return movementRepository.findById(id).map(movement -> {
             if (StringUtils.isNotBlank(movementDto.getNumber())) {
                 movement.setNumber(movementDto.getNumber());

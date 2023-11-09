@@ -1,13 +1,9 @@
 package com.example.accountservice.account.dto;
 
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
-@AllArgsConstructor
 public class AccountDto {
     @Size(max = 20)
     private String number;

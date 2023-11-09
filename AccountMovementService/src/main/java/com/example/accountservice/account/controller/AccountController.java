@@ -1,6 +1,7 @@
 package com.example.accountservice.account.controller;
 
 import com.example.accountservice.account.dto.AccountDto;
+import com.example.accountservice.account.model.Account;
 import com.example.accountservice.account.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,8 +16,8 @@ public class AccountController {
     private final AccountService accountService;
 
     @PostMapping
-    public ResponseEntity save(@Valid @RequestBody AccountDto accountDto) {
-        return accountService.post(accountDto);
+    public ResponseEntity post(@Valid @RequestBody AccountDto accountDto) {
+        return accountService.save(accountDto);
     }
 
     @GetMapping(value = "/{id}")
@@ -25,8 +26,13 @@ public class AccountController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity update(@PathVariable Long id, @Valid @RequestBody AccountDto accountDto) {
-        return accountService.put(id, accountDto);
+    public ResponseEntity put(@PathVariable Long id, @Valid @RequestBody Account account) {
+        return accountService.update(id, account);
+    }
+
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity patch(@PathVariable Long id, @Valid @RequestBody AccountDto accountDto) {
+        return accountService.patch(id, accountDto);
     }
 
     @DeleteMapping(value = "/{id}")

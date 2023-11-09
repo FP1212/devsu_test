@@ -1,10 +1,11 @@
 package com.example.clientservice.client.dto;
 
-import lombok.Builder;
+import com.example.clientservice.user.dto.UserDto;
 import lombok.Data;
 
 @Data
-public class ClientDto {
+public class ClientDto extends UserDto {
     private String name;
-    private Long id;
+    private String password;
+    private Boolean status;
 }

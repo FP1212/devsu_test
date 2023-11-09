@@ -27,7 +27,7 @@ public class AccountService {
     @Value("${app.client.api.url}")
     private String clientServiceApiUrl;
 
-    public ResponseEntity<?> post(AccountDto accountDto) {
+    public ResponseEntity<?> save(AccountDto accountDto) {
         try {
             if (accountRepository.existsByNumber(accountDto.getNumber())){
                 return ResponseEntity.badRequest().body("Account already exists");
@@ -67,7 +67,16 @@ public class AccountService {
         return accountRepository.findById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public ResponseEntity<?> put(Long id, AccountDto accountDto) {
+    public ResponseEntity<?> update(Long id, Account newAccount) {
+        if (accountRepository.existsById(id)) {
+            newAccount.setId(id);
+            return ResponseEntity.ok(accountRepository.save(newAccount));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<?> patch(Long id, AccountDto accountDto) {
         return accountRepository.findById(id).map(account -> {
             if (StringUtils.isNotBlank(accountDto.getNumber())) {
                 account.setNumber(accountDto.getNumber());
