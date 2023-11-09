@@ -5,10 +5,6 @@ import com.example.accountservice.audit.model.Auditable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.util.Date;
 
 @Entity
 @Table
@@ -33,7 +29,7 @@ public class Movement extends Auditable<String> {
     @Size(max = 20)
     private String number;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="account_id")
     private Account account;
 }

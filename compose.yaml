@@ -14,15 +14,16 @@ services:
       timeout: '5s'
       retries: 3     
   rabbitmq:
-    image: 'rabbitmq:latest'
+    image: 'rabbitmq:3.9.15-management'
     environment:
       RABBITMQ_DEFAULT_USER: 'dev'
-      RABBITMQ_DEFAULT_PASS: '67lG"Bc6;taL'
+      RABBITMQ_DEFAULT_PASS: '67LG"BC6;TAL'
     ports:
-      - '5672'
-      - "15672:15673"
+      - '5673:5672'
+      - '15673:15672'
     volumes:
-      - ./rabbitmq:/etc/rabbitmq      
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 15s
